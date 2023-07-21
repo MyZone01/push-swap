@@ -1,3 +1,7 @@
-"echo -e "sa
 pb
-rrr" | ./checker "0 9 1 8 2 7 3 6 4 5""
+pb
+ra
+sa
+rrr
+pa
+p

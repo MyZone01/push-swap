@@ -4,10 +4,10 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 )
 
 func Run(stack []int) {
-
 	//Parse input arguments and store them in the stack
 	scanner := bufio.NewScanner(os.Stdin)
 	instructions := []string{}
@@ -82,8 +82,10 @@ func checkInstructions(stack []int, instructions []string) bool {
 			os.Exit(1)
 		}
 	}
-
-	return isSorted(stackA)
+	sort.Ints(stack)
+	fmt.Println(stack)
+	fmt.Println(stackA)
+	return isSorted(stackA, stack)
 }
 
 func swapStack(stack *[]int) {
@@ -102,6 +104,7 @@ func pushStack(src *[]int, dst *[]int) {
 	*src = (*src)[1:]
 	*dst = append([]int{num}, *dst...)
 }
+
 func rotateStack(stack *[]int) {
 	if len(*stack) < 2 {
 		return
@@ -110,6 +113,7 @@ func rotateStack(stack *[]int) {
 	*stack = (*stack)[1:]
 	*stack = append(*stack, num)
 }
+
 func reverseRotateStack(stack *[]int) {
 	if len(*stack) < 2 {
 		return
@@ -118,9 +122,9 @@ func reverseRotateStack(stack *[]int) {
 	*stack = append([]int{num}, (*stack)[:len(*stack)-1]...)
 }
 
-func isSorted(stack []int) bool {
-	for i := 1; i < len(stack); i++ {
-		if stack[i] < stack[i-1] {
+func isSorted(stack, sort []int) bool {
+	for i := 0; i < len(stack); i++ {
+		if stack[i] != sort[i] {
 			return false
 		}
 	}

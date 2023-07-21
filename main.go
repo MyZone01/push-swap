@@ -19,9 +19,6 @@ func main() {
 	fmt.Println(elements)
 	stack := parseArgs(strings.Split(elements, " "))
 	checker.Run(stack)
-	//instructions := pushSwap(stack)
-	//printInstructions(instructions)
-
 }
 
 // Parse input arguments and store them in the stack
@@ -60,7 +57,6 @@ func printInstructions(instructions []string) {
 }
 
 // ...
-
 func pushSwap(stack []int) []string {
 	instructions := []string{}
 	stackB := []int{}
