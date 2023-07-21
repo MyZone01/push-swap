@@ -85,7 +85,7 @@ func checkInstructions(stack []int, instructions []string) bool {
 
 func swapStack(stack *[]int) {
 	if len(*stack) < 2 {
-		return // Implement the reverse rotate operation for both stacks
+		return
 	}
 	(*stack)[0], (*stack)[1] = (*stack)[1], (*stack)[0]
 }
@@ -114,8 +114,6 @@ func reverseRotateStack(stack *[]int) {
 	num := (*stack)[len(*stack)-1]
 	*stack = append([]int{num}, (*stack)[:len(*stack)-1]...)
 }
-
-// Implement the other stack operations (push, rotate, reverse rotate) similarly
 
 func isSorted(stack []int) bool {
 	for i := 1; i < len(stack); i++ {
