@@ -15,9 +15,12 @@ func Run(stack []int) {
 	// Read instructions from stdin
 	for scanner.Scan() {
 		instruction := scanner.Text()
+		if len(instruction) == 0 {
+			continue
+		}
 		if !isValidInstruction(instruction) {
 			fmt.Fprintln(os.Stderr, "Error")
-			os.Exit(1)
+			os.Exit(0)
 		}
 		instructions = append(instructions, instruction)
 	}
