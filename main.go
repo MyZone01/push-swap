@@ -4,20 +4,29 @@ import (
 	"fmt"
 	"os"
 	pushswap "pushswap/push_swap"
+	"sort"
 	"strconv"
 	"strings"
 )
 
 func main() {
 	arguments := os.Args[1:]
-
 	if len(arguments) != 1 {
+		fmt.Println("USAGE: go run . \"<list of number>\"")
 		return
 	}
 	elements := arguments[0]
 	stack := parseArgs(strings.Split(elements, " "))
 	fmt.Println(stack)
-	pushswap.SmallSort(&stack)
+	if !sort.IntsAreSorted(stack) {
+		if len(stack) <= 5 {
+			pushswap.SmallSort(&stack)
+		} else {
+			pushswap.BigSort(&stack)
+		}
+	}
+	fmt.Println(pushswap.Instructions)
+	fmt.Println("We have ",pushswap.NumberOfInstruction, "instructions.")
 	fmt.Println(stack)
 }
 

@@ -4,17 +4,18 @@ import "fmt"
 
 func swapStack(stack *[]int, name string) {
 	if name != "" {
-		fmt.Println("s" + name)
+		Instructions += fmt.Sprintln("s" + name)
 	}
 	if len(*stack) < 2 {
 		return
 	}
 	(*stack)[0], (*stack)[1] = (*stack)[1], (*stack)[0]
+	NumberOfInstruction++
 }
 
 func pushStack(src *[]int, dst *[]int, name string) {
 	if name != "" {
-		fmt.Println("p" + name)
+		Instructions += fmt.Sprintln("p" + name)
 	}
 	if len(*src) == 0 {
 		return
@@ -22,11 +23,12 @@ func pushStack(src *[]int, dst *[]int, name string) {
 	num := (*src)[0]
 	*src = (*src)[1:]
 	*dst = append([]int{num}, *dst...)
+	NumberOfInstruction++
 }
 
 func rotateStack(stack *[]int, name string) {
 	if name != "" {
-		fmt.Println("r" + name)
+		Instructions += fmt.Sprintln("r" + name)
 	}
 	if len(*stack) < 2 {
 		return
@@ -34,15 +36,17 @@ func rotateStack(stack *[]int, name string) {
 	num := (*stack)[0]
 	*stack = (*stack)[1:]
 	*stack = append(*stack, num)
+	NumberOfInstruction++
 }
 
 func reverseRotateStack(stack *[]int, name string) {
 	if name != "" {
-		fmt.Println("rr" + name)
+		Instructions += fmt.Sprintln("rr" + name)
 	}
 	if len(*stack) < 2 {
 		return
 	}
 	num := (*stack)[len(*stack)-1]
 	*stack = append([]int{num}, (*stack)[:len(*stack)-1]...)
+	NumberOfInstruction++
 }
