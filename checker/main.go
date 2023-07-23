@@ -24,7 +24,6 @@ func Run(stack []int) {
 		}
 		instructions = append(instructions, instruction)
 	}
-	fmt.Printf("%#v\n", instructions)
 
 	// Check if the instructions sort the stack correctly
 	if checkInstructions(stack, instructions) {
@@ -83,8 +82,6 @@ func checkInstructions(stack []int, instructions []string) bool {
 		}
 	}
 	sort.Ints(stack)
-	fmt.Println(stack)
-	fmt.Println(stackA)
 	return isSorted(stackA, stack)
 }
 

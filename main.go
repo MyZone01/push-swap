@@ -15,8 +15,6 @@ func main() {
 		return
 	}
 	elements := arguments[0]
-
-	fmt.Println(elements)
 	stack := parseArgs(strings.Split(elements, " "))
 	checker.Run(stack)
 }
@@ -48,12 +46,6 @@ func hasDuplicates(stack []int) bool {
 		seen[num] = true
 	}
 	return false
-}
-
-func printInstructions(instructions []string) {
-	for _, instr := range instructions {
-		fmt.Println(instr)
-	}
 }
 
 // ...
