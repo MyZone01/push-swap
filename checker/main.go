@@ -92,7 +92,6 @@ func swapStack(stack *[]int) {
 	(*stack)[0], (*stack)[1] = (*stack)[1], (*stack)[0]
 }
 
-// Take the top first of src and push in to dst
 func pushStack(src *[]int, dst *[]int) {
 	if len(*src) == 0 {
 		return
