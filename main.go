@@ -9,6 +9,12 @@ import (
 	"strings"
 )
 
+// ANSI escape code for setting text color to red
+const redColor = "\033[31m"
+
+// ANSI escape code for resetting text color to default
+const resetColor = "\033[0m"
+
 func main() {
 	arguments := os.Args[1:]
 	if len(arguments) != 1 {
@@ -17,17 +23,19 @@ func main() {
 	}
 	elements := arguments[0]
 	stack := parseArgs(strings.Split(elements, " "))
-	fmt.Println(stack)
 	if !sort.IntsAreSorted(stack) {
-		if len(stack) <= 5 {
+		if len(stack) <= 6 {
 			pushswap.SmallSort(&stack)
 		} else {
 			pushswap.BigSort(&stack)
 		}
 	}
 	fmt.Println(pushswap.Instructions)
-	fmt.Println("We have ",pushswap.NumberOfInstruction, "instructions.")
-	fmt.Println(stack)
+	if pushswap.NumberOfInstruction > 12 {
+		fmt.Printf("%sWe have %d instructions %s%v\n", redColor, pushswap.NumberOfInstruction, resetColor, stack)
+	} else {
+		fmt.Println("We have", pushswap.NumberOfInstruction, "instructions.", stack)
+	}
 }
 
 func parseArgs(args []string) []int {
