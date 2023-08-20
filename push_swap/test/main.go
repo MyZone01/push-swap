@@ -32,7 +32,7 @@ func generatePermutations(arr []int) [][]int {
 }
 
 func executePushSwap(input string) string {
-	cmd := exec.Command("../pushswap", input)
+	cmd := exec.Command("../push-swap", input)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return "Error"

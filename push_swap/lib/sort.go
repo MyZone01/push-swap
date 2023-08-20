@@ -1,15 +1,12 @@
 package pushswap
 
 import (
-	"fmt"
 	"sort"
 )
 
 var (
-	NumberOfInstruction int = 0
+	max, min, NumberOfInstruction int
 	Instructions        string
-	_stackA             []int
-	_stackB             []int
 )
 
 func PushSwap3Number(stack *[]int) {
@@ -29,6 +26,7 @@ func PushSwap3Number(stack *[]int) {
 }
 
 func SmallSort(stackA *[]int) {
+	max, min = findMinMax(stackA)
 	if len(*stackA) == 2 {
 		swapStack(stackA, "a")
 	} else {
@@ -44,22 +42,6 @@ func SmallSort(stackA *[]int) {
 	}
 }
 
-func BigSort(stackA *[]int) {
-	stackB := []int{}
-	RadixSort(stackA, &stackB)
-	fmt.Println(stackA)
-	fmt.Println(stackB)
-}
-
-func GoToStackB(stackA, stackB *[]int) {
-	for !isVoid(*stackA) || !IsDecreaseSorted(stackB) {
-		pushStack(stackA, stackB, "b")
-		if len(*stackB) > 1 {
-			sortStackB(stackB)
-		}
-	}
-}
-
 func IsDecreaseSorted(stack *[]int) bool {
 	for i := 0; i < len(*stack)-1; i++ {
 		if (*stack)[i] < (*stack)[i+1] {
@@ -69,60 +51,24 @@ func IsDecreaseSorted(stack *[]int) bool {
 	return true
 }
 
-func GoToStackA(stackA, stackB *[]int) {
+func findMinMax(numbers *[]int) (int, int) {
+	if numbers == nil || len(*numbers) == 0 {
+		return 0, 0 // Return default values when the slice is empty or nil
+	}
 
-}
+	max := (*numbers)[0]
+	min := (*numbers)[0]
 
-func sortStackB(stackB *[]int) {
-	if (*stackB)[0] >= (*stackB)[1] {
-		return
-	} else if (*stackB)[0] <= (*stackB)[len((*stackB))-1] {
-		rotateStack(stackB, "a")
-	} else {
-		numberOfRA := 0
-		for !sort.IntsAreSorted(*stackB) {
-			if len(*stackB) >= 2 && (*stackB)[0] <= (*stackB)[1] {
-				swapStack(stackB, "a")
-				if len(*stackB) >= 3 && (*stackB)[1] <= (*stackB)[2] {
-					rotateStack(stackB, "a")
-					numberOfRA++
-				} else {
-					break
-				}
-			} else {
-				break
-			}
+	for _, num := range *numbers {
+		if num > max {
+			max = num
 		}
-		for i := 0; i < numberOfRA; i++ {
-			reverseRotateStack(stackB, "a")
+		if num < min {
+			min = num
 		}
 	}
-}
 
-func sortStackA(stackA *[]int) {
-	if (*stackA)[0] <= (*stackA)[1] {
-		return
-	} else if (*stackA)[0] >= (*stackA)[len((*stackA))-1] {
-		rotateStack(stackA, "a")
-	} else {
-		numberOfRA := 0
-		for !sort.IntsAreSorted(*stackA) {
-			if len(*stackA) >= 2 && (*stackA)[0] >= (*stackA)[1] {
-				swapStack(stackA, "a")
-				if len(*stackA) >= 3 && (*stackA)[1] >= (*stackA)[2] {
-					rotateStack(stackA, "a")
-					numberOfRA++
-				} else {
-					break
-				}
-			} else {
-				break
-			}
-		}
-		for i := 0; i < numberOfRA; i++ {
-			reverseRotateStack(stackA, "a")
-		}
-	}
+	return max, min
 }
 
 // MergeSmallStacks merges the elements of stackB into stackA in sorted order using a combination of push, rotate, and reverse rotate operations.
@@ -130,8 +76,15 @@ func sortStackA(stackA *[]int) {
 // The function uses a max and min value to identify the elements that need special handling when merging.
 func MergeSmallStacks(stackA, stackB *[]int) {
 	// Define the max and min values for special handling
-	max := 5
-	min := 1
+	for i := 0; i < len(*stackA); i++ {
+		current := (*stackA)[i]
+		if current > max {
+			max = current
+		}
+		if current < min {
+			min = current
+		}
+	}
 
 	// Loop until stackB is empty
 	for len(*stackB) != 0 {
@@ -232,30 +185,6 @@ func MergeSmallStacks(stackA, stackB *[]int) {
 				}
 			}
 
-		}
-	}
-}
-
-// RadixSort returns a string of instructions.
-// Its result is correct if there's no negative number.
-func RadixSort(stackA, stackB *[]int) {
-	l := len(*stackA)
-	maxNum := len(*stackA) - 1
-	maxBits := 0
-	for maxNum>>maxBits != 0 {
-		maxBits++
-	}
-	for i := 0; i < maxBits; i++ {
-		for j := 0; j < l; j++ {
-			num := (*stackA)[len(*stackA)-1]
-			if (num>>i)&1 == 1 {
-				rotateStack(stackA, "a")
-			} else {
-				pushStack(stackA, stackB, "b")
-			}
-		}
-		for len(*stackB) != 0 {
-			pushStack(stackB, stackA, "a")
 		}
 	}
 }
