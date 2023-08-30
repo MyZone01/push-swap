@@ -31,6 +31,9 @@ func SmallSort(stackA *[]int) {
 		swapStack(stackA, "a")
 	} else {
 		stackB := []int{}
+		if (*stackA)[0] > (*stackA)[1] {
+			swapStack(stackA, "a")
+		}
 		for len(*stackA) != 3 && !sort.IntsAreSorted(*stackA) {
 			pushStack(stackA, &stackB, "b")
 		}
