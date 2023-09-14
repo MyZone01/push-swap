@@ -37,7 +37,7 @@ There are two programs in this project:
 #### USAGE:
 
 ```shell
-./checker [integer arguments] < [instructions]
+[instructions] | ./checker [integer arguments]
 ```
 
 - The integer arguments should be formatted as a list, with the first argument at the top of stack a. Instructions are provided via standard input.
